@@ -4,11 +4,11 @@ FROM alpine:3.12.0 AS build
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2020-10-02 \
+ENV REFRESHED_AT=2020-11-06 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
-    ERLANG_VERSION=23.1.1
+    ERLANG_VERSION=23.0.4
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
 RUN \
@@ -136,7 +136,7 @@ RUN \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     # Upgrade Alpine and base packages
     apk --no-cache --update --available upgrade && \
-    # Install bash and Erlang/OTP deps
+    # Install bash and Erlang/OTP deps and Imagemagick
     apk add --no-cache --update pcre@edge && \
     apk add --no-cache --update \
       bash \
@@ -144,7 +144,8 @@ RUN \
       openssl \
       ncurses \
       unixodbc \
-      zlib && \
+      zlib \
+      imagemagick && \
     # Update ca certificates
     update-ca-certificates --fresh
 
