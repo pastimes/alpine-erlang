@@ -4,7 +4,7 @@ FROM alpine:3.12.0 AS build
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2020-11-06 \
+ENV REFRESHED_AT=2020-11-13 \
     LANG=en_US.UTF-8 \
     HOME=/opt/app/ \
     TERM=xterm \
@@ -145,7 +145,8 @@ RUN \
       ncurses \
       unixodbc \
       zlib \
-      imagemagick && \
+      imagemagick \
+      file && \
     # Update ca certificates
     update-ca-certificates --fresh
 
